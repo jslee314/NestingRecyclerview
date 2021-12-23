@@ -2,6 +2,7 @@ package com.jslee.nestingrecyclerview.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -29,7 +30,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setViews(){
-        adapter = MenuAdapter()
+        adapter = MenuAdapter( MenuAdapter.OnClickListener{
+            val clickedItem = it
+        })
         adapter.replaceList(viewModel.fistList)
 
         binding.recyclerView.adapter = adapter

@@ -5,26 +5,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jslee.nestingrecyclerview.data.MenuData
 import com.jslee.nestingrecyclerview.databinding.ItemFirstListBinding
 
-class MenuAdapter()
+class MenuAdapter(private val onClickListener: OnClickListener)
     : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
-    private var menuList = emptyList<String>()
-    private val onClickListener: ChildMenuAdapter.OnClickListener = TODO()
-    fun replaceList(newList: List<String>) {
+    private var menuList = emptyList<MenuData>()
+    fun replaceList(newList: List<MenuData>) {
         this.menuList = newList
         notifyDataSetChanged() //어댑터의 데이터가 변했다는 notify를 날린다
     }
 
 
     class MenuViewHolder(var binding:ItemFirstListBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(menuItem : String, listener: View.OnClickListener){
-            binding.menuTextView.text = menuItem
+        fun bind(menuItem : MenuData, listener: View.OnClickListener){
+            binding.menuTextView.text = menuItem.menuTitle
 
             val childMenuAdapter = ChildMenuAdapter(ChildMenuAdapter.OnClickListener{
                 val clickedItem = it
             })
+
+            childMenuAdapter.replaceList(menuItem.subMenuTitles)
 
             binding.childRecyclerView.adapter = childMenuAdapter
             binding.childRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
@@ -52,7 +54,7 @@ class MenuAdapter()
         return menuList.size
     }
 
-    class OnClickListenerOnClickListener(val clickListener: (clickedItem: String) -> Unit) {
-        fun onClick(item: String) = clickListener(item)
+    class OnClickListener(val clickListener: (clickedItem: MenuData) -> Unit) {
+        fun onClick(item: MenuData) = clickListener(item)
     }
 }
