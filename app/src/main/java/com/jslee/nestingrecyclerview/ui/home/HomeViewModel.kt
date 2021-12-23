@@ -3,6 +3,7 @@ package com.jslee.nestingrecyclerview.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.jslee.nestingrecyclerview.data.MenuData
 
 class HomeViewModel : ViewModel() {
 
@@ -19,6 +20,9 @@ class HomeViewModel : ViewModel() {
 
     val secondListOfThird: ArrayList<String> = arrayListOf(
         "인증서 발급/재발급", "인증서 갱신", "인증서 폐지")
+
+
+
 
 
 }
